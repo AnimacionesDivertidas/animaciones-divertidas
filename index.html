@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reserva tu espacio | Animaciones Divertidas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    * { box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #ffe0b3, #ffffff); color: #333; margin: 0; padding: 20px; }
+    .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    h1 { color: #ff6600; text-align: center; font-size: 28px; margin-bottom: 10px; }
+    label { font-weight: bold; margin-top: 10px; display: block; }
+    input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ccc; }
+    .hidden { display: none; }
+    button { background: #ff6600; color: white; padding: 12px; border: none; border-radius: 8px; font-size: 16px; width: 100%; cursor: pointer; }
+    button:hover { background: #e65c00; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Reserva tu espacio en Animaciones Divertidas 🎉</h1>
+    <p style='font-size:16px; line-height:1.6;'>Reunión profesional o fiesta familiar, este es tu lugar. <strong>25 € por hora</strong>. Si reservas 3 o más horas seguidas, te regalamos media hora extra para prepararte o quedarte un poco más. 😉</p>
+    <form id="reservaForm" action="https://formsubmit.co/animacionesdivertidas1422@gmail.com" method="POST">
+      <label for="fecha">📅 Fecha del evento:</label>
+      <input type="date" id="fecha" name="Fecha" required>
+
+      <label for="horaInicio">🕒 Hora de inicio del evento:</label>
+      <input type="time" id="horaInicio" name="Hora de inicio" required>
+
+      <label for="horaFin">🕒 Hora de finalización del evento:</label>
+      <input type="time" id="horaFin" name="Hora de finalización" required>
+
+      <div id="extraBlock" class="hidden">
+        <label>🎁 ¿Dónde quieres tu media hora extra?</label>
+        <select name="Media hora extra" id="mediaHoraExtra">
+          <option value="">Selecciona una opción</option>
+          <option value="Antes">Antes</option>
+          <option value="Después">Después</option>
+        </select>
+      </div>
+
+      <label for="nombre">👤 Nombre completo:</label>
+      <input type="text" id="nombre" name="Nombre" required>
+
+      <label for="email">📧 Correo electrónico:</label>
+      <input type="email" id="email" name="Email" required>
+
+      <label for="telefono">📞 Teléfono:</label>
+      <input type="tel" id="telefono" name="Teléfono" required>
+
+      <label for="comentarios">📝 ¿Qué tipo de evento es?</label>
+      <textarea id="comentarios" name="Tipo de evento" rows="3"></textarea>
+
+      <input type="hidden" name="_subject" value="Nueva reserva Animaciones Divertidas">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="box">
+
+      <button type="submit">Enviar reserva</button>
+    </form>
+  </div>
+
+  <script>
+    const inicio = document.getElementById("horaInicio");
+    const fin = document.getElementById("horaFin");
+    const extraBlock = document.getElementById("extraBlock");
+
+    function comprobarHoras() {
+      const t1 = inicio.value.split(":");
+      const t2 = fin.value.split(":");
+      if (t1.length === 2 && t2.length === 2) {
+        const inicioMins = parseInt(t1[0]) * 60 + parseInt(t1[1]);
+        const finMins = parseInt(t2[0]) * 60 + parseInt(t2[1]);
+        const duracion = finMins - inicioMins;
+        if (duracion >= 180) {
+          extraBlock.classList.remove("hidden");
+        } else {
+          extraBlock.classList.add("hidden");
+        }
+      }
+    }
+
+    inicio.addEventListener("change", comprobarHoras);
+    fin.addEventListener("change", comprobarHoras);
+  </script>
+</body>
+</html>
